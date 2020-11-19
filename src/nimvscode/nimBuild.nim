@@ -143,7 +143,10 @@ proc parseErrors(lines:seq[cstring]):seq[CheckResult] =
             else:
                 if messageText.len > 0 and ret.len > 0:
                     ret[ret.len - 1].msg &= nodeOs.eol & messageText
-                
+
+                if severity == nil:
+                    severity = "Error"
+
                 messageText = ""
                 if isWorkspaceFile(file):
                     ret.add(CheckResult{
